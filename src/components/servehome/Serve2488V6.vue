@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-loading="loading">
         <el-button @click="$router.push({path:'/jian'})">兼容性</el-button>
         <div class="crumbs">
             <el-breadcrumb separator="/">
@@ -236,6 +236,7 @@ export default {
     name: 'baseform',
     data() {
         return {
+            loading:false,
             dragOptions: {
                 animation: 120,
                 scroll: true,
@@ -672,7 +673,8 @@ export default {
                     price: this.desab3.price,
                     compatibili: this.desab3.compatibili,
                     number: this.desab3.number,
-                    astrict: this.desab3.astrict
+                    astrict: this.desab3.astrict,
+                    ...this.desab3
                 })
                 .then(() => {
                     this.$message({
@@ -819,13 +821,15 @@ export default {
         },
         //第一层
         async findClass() {
+            this.loading=true
             await this.$axios.get('/classificationtable/findAll').then((res) => {
                 this.classAll = res.data;
-                console.log(11111,this.classAll)
+                this.loading=false
             });
         },
         //第二层
         async findDetail() {
+            this.loading=true
             await this.$axios.get('/Detailstable/findAll').then((res) => {
                 this.classDetail = [];
                 res.data.forEach((item) => {
@@ -833,10 +837,12 @@ export default {
                         this.classDetail.push(item);
                     }
                 });
+                this.loading=false
             });
         },
         //第三层
         async findTable() {
+            this.loading=true
             await this.$axios.get('/AllTable/findAllAllTable').then((res) => {
                 // this.classTable = res.data;
                 this.classTable = [];
@@ -849,6 +855,7 @@ export default {
                             this.classTable.push(item);
                         }
                     }
+                    this.loading=false
                 });
             });
         }

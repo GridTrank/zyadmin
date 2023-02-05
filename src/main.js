@@ -17,6 +17,7 @@ import axios from 'axios';
 // axios.defaults.baseURL = '/api';
 Vue.prototype.$axios = axios;
 axios.defaults.baseURL = 'http://47.104.251.175:8080';
+
 // Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(ElementUI, {

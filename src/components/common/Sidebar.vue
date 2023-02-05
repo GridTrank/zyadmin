@@ -81,6 +81,11 @@ export default {
                 },
                 {
                     icon: 'el-icon-lx-copy',
+                    index: 'brands',
+                    title: '品牌管理'
+                },
+                {
+                    icon: 'el-icon-lx-copy',
                     index: 'tabs',
                     title: '产品添加'
                 },

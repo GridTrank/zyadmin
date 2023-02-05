@@ -36,6 +36,16 @@ const router =  new Router({
                     meta: { title: '商品数据修改' }
                 },
                 {
+                    path: '/brands',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Brands.vue'),
+                    meta: { title: '品牌添加' }
+                },
+                {
+                    path: '/tabs',
+                    component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
+                    meta: { title: '产品添加' }
+                },
+                {
                     path: '/tabs',
                     component: () => import(/* webpackChunkName: "tabs" */ '../components/page/Tabs.vue'),
                     meta: { title: '产品添加' }
