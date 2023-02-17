@@ -26,11 +26,13 @@
                                         @dragover.prevent
                                         >
                                             {{ item.name }}
-
                                         </div>
                                     </transition-group>
                                 </draggable>
                             </div>
+                            <!-- <div class="wrap-right" v-if="classAll.length>0">
+                                <transitionvue :allData="classAll[allDetailIndex]" :name="classAll[allDetailIndex].name"></transitionvue>
+                            </div> -->
                             <div class="wrap-right" v-if="classAll.length>0">
                                 <el-table :data="classAll[allDetailIndex].classificationtabless" border >
                                     <el-table-column :label="classAll[allDetailIndex].name" >
@@ -53,27 +55,6 @@
                             </div>
                         </div>
                         
-
-                        <!-- <el-tab-pane v-for="(item, index) in classAll" :key="item.id" :label="item.name">
-                            <div>
-                                <el-table :data="item.classificationtabless" style="width: 100%">
-                                    <el-table-column :label="item.name" width="600px">
-                                        <template slot-scope="scope">
-                                            <span style="margin-left: 10px"> {{ scope.row.classification }} </span>
-                                        </template>
-                                    </el-table-column>
-                                    <el-table-column label="操作">
-                                        <template slot-scope="scope">
-                                            <el-button size="mini" @click="handleEdit(index, scope.row, 'edit')" round>编辑</el-button>
-                                            <el-button size="mini" type="danger" @click="handleDel(index, scope.row)" round>删除</el-button>
-                                            <el-button size="mini" type="success" @click="handleAdd(index, scope.row, 'add')" round
-                                                >增加</el-button
-                                            >
-                                        </template>
-                                    </el-table-column>
-                                </el-table>
-                            </div>
-                        </el-tab-pane> -->
                     </el-tabs>
                 </el-collapse-item>
 
@@ -232,6 +213,7 @@
 
 <script>
 import draggable from 'vuedraggable';
+import transitionvue from './transition.vue';
 export default {
     name: 'baseform',
     data() {
@@ -321,7 +303,8 @@ export default {
         };
     },
     components: {
-        draggable
+        draggable,
+        transitionvue
     },
     mounted() {},
     created() {
@@ -348,10 +331,11 @@ export default {
                 const moving = list[this.dragIndex];
                 list.splice(this.dragIndex, 1);
                 list.splice(index, 0, moving);
+                // console.log(1111,list)   //最终列表
             }
+
         },
         removeHandle(event) {
-           
             this.$message.success(`从 ${event.from.id} 移动到 ${event.to.id} `);
         },
         preText(pretext) {
@@ -902,10 +886,12 @@ export default {
 
 .list-wrap{
     display: flex;
+    min-width: 800px;
     .wrap-left{
         width: 20%;
         background-color: #f1f1f1;
         border: 1px solid #f1f1f1;
+        flex-shrink: 0;
         .drag-list{
             width: 100%;
             height: 50px;
@@ -922,6 +908,20 @@ export default {
     }
     .wrap-right{
         width: 80%;
+        border: 1px solid #f1f1f1;
+        .table-wrap{
+            width: 100%;
+            .table{
+                height: 50px;
+                padding: 0 20px;
+                .left{
+                    width: 50%;
+                }
+                .right{
+                    width: 50%;
+                }
+            }
+        }
     }
 }
 </style>

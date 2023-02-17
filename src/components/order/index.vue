@@ -17,93 +17,95 @@
                 </div>
             </download-excel>
         </div>
-        <el-table :data="tableData" row-key="oid" :expand-row-keys="expands.length > 0 ? expands : expands2" style="width: 100%">
-            <el-table-column type="index" width="50"> </el-table-column>
-            <el-table-column type="expand" width="0" align="right">
-                <template >
-                    <!-- 客户信息 -->
-                    <div v-if="expands.length > 0">
-                        <el-form label-position="left" inline class="demo-table-expand">
-                            <el-form-item label="用户ID:">
-                                <span>{{ userData.id }}</span>
-                            </el-form-item>
-                            <el-form-item label="账号名:">
-                                <span>{{ userData.nickname }}</span>
-                            </el-form-item>
-                            <el-form-item label="注册时间:">
-                                <span>{{ userData.time }}</span>
-                            </el-form-item>
-                            <el-form-item label="手机号:">
-                                <span>{{ userData.phone }}</span>
-                            </el-form-item>
-                            <el-form-item label="邮箱:">
-                                <span>{{ userData.email }}</span>
-                            </el-form-item>
-                            <el-form-item label="公司名称:">
-                                <span>{{ userData.companyname }}</span>
-                            </el-form-item>
-                            <el-form-item label="职位:">
-                                <span>{{ userData.position }}</span>
-                            </el-form-item>
-                            <el-form-item label="来源渠道:">
-                                <span>{{ userData.source }}</span>
-                            </el-form-item>
-                            <el-form-item label="会员等级:">
-                                <span>{{ userData.viplv }}</span>
-                            </el-form-item>
-                            <el-form-item label="折扣:">
-                                <span>{{ userData.discount }}</span>
-                            </el-form-item>
-                        </el-form>
-                    </div>
-                    <!-- 产品配置 -->
-                    <div v-else>
-                        <div v-for="item in peizhi" :key="item.zid">
-                            <p>{{ item.classification }}</p>
-                            <p style="margin-left: 10px" v-for="i in item.alltableings" :key="i.xid">
-                                {{ i.choose }}
-                                <span style="margin-left: 10px">数量：{{ i.number }}</span>
-                            </p>
+        <div class="table-wrap">
+            <el-table :data="tableData" row-key="oid" :expand-row-keys="expands.length > 0 ? expands : expands2" style="width: 100%">
+                <el-table-column type="index" width="50"> </el-table-column>
+                <el-table-column type="expand" width="0" align="right">
+                    <template >
+                        <!-- 客户信息 -->
+                        <div v-if="expands.length > 0">
+                            <el-form label-position="left" inline class="demo-table-expand">
+                                <el-form-item label="用户ID:">
+                                    <span>{{ userData.id }}</span>
+                                </el-form-item>
+                                <el-form-item label="账号名:">
+                                    <span>{{ userData.nickname }}</span>
+                                </el-form-item>
+                                <el-form-item label="注册时间:">
+                                    <span>{{ userData.time }}</span>
+                                </el-form-item>
+                                <el-form-item label="手机号:">
+                                    <span>{{ userData.phone }}</span>
+                                </el-form-item>
+                                <el-form-item label="邮箱:">
+                                    <span>{{ userData.email }}</span>
+                                </el-form-item>
+                                <el-form-item label="公司名称:">
+                                    <span>{{ userData.companyname }}</span>
+                                </el-form-item>
+                                <el-form-item label="职位:">
+                                    <span>{{ userData.position }}</span>
+                                </el-form-item>
+                                <el-form-item label="来源渠道:">
+                                    <span>{{ userData.source }}</span>
+                                </el-form-item>
+                                <el-form-item label="会员等级:">
+                                    <span>{{ userData.viplv }}</span>
+                                </el-form-item>
+                                <el-form-item label="折扣:">
+                                    <span>{{ userData.discount }}</span>
+                                </el-form-item>
+                            </el-form>
                         </div>
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column prop="number" show-overflow-tooltip label="订单编号"> </el-table-column>
-            <el-table-column prop="name" show-overflow-tooltip label="客户姓名（下单人）">
-                <template slot-scope="scope">
-                    <p>{{ scope.row.username }}</p>
-                    <el-button class="table_button" size="mini" type="text" @click="expandRow(scope.row)"
-                        ><i
-                            :class="`${expands[0] == scope.row.oid ? 'el-icon-caret-bottom' : 'el-icon-caret-right'} 'el-icon--right'`"
-                        />客户信息</el-button
-                    >
-                </template>
-            </el-table-column>
-            <el-table-column prop="time" show-overflow-tooltip label="下单时间"> </el-table-column>
-            <el-table-column prop="address" show-overflow-tooltip label="选购商品名称">
-                <template slot-scope="scope">
-                    <p>{{ scope.row.paper }}</p>
-                    <el-button class="table_button" size="mini" type="text" @click="expandRow2(scope.row)"
-                        ><i
-                            :class="`${expands2[0] == scope.row.oid ? 'el-icon-caret-bottom' : 'el-icon-caret-right'} 'el-icon--right'`"
-                        />产品配置</el-button
-                    >
-                </template>
-            </el-table-column>
-            <!-- <el-table-column prop="addressname" show-overflow-tooltip label="选购商品数量"> </el-table-column>
-            <el-table-column prop="addressname" show-overflow-tooltip label="选购商品价格"> </el-table-column> -->
-            <el-table-column prop="addressname" show-overflow-tooltip label="收件人信息"> </el-table-column>
-            <el-table-column prop="phone" show-overflow-tooltip label="收件人联系电话"> </el-table-column>
-            <el-table-column prop="site" show-overflow-tooltip label="收件人收货地址"> </el-table-column>
-            <el-table-column prop="state" show-overflow-tooltip label="订单支付状态"> </el-table-column>
-            <el-table-column show-overflow-tooltip prop="logistics" label="物流状态"> </el-table-column>
-            <el-table-column label="操作">
-                <template slot-scope="scope">
-                    <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> -->
-                    <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+                        <!-- 产品配置 -->
+                        <div v-else>
+                            <div v-for="item in peizhi" :key="item.zid">
+                                <p>{{ item.classification }}</p>
+                                <p style="margin-left: 10px" v-for="i in item.alltableings" :key="i.xid">
+                                    {{ i.choose }}
+                                    <span style="margin-left: 10px">数量：{{ i.number }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="number" show-overflow-tooltip label="订单编号"> </el-table-column>
+                <el-table-column prop="name" show-overflow-tooltip label="客户姓名（下单人）">
+                    <template slot-scope="scope">
+                        <p>{{ scope.row.username }}</p>
+                        <el-button class="table_button" size="mini" type="text" @click="expandRow(scope.row)"
+                            ><i
+                                :class="`${expands[0] == scope.row.oid ? 'el-icon-caret-bottom' : 'el-icon-caret-right'} 'el-icon--right'`"
+                            />客户信息</el-button
+                        >
+                    </template>
+                </el-table-column>
+                <el-table-column prop="time" show-overflow-tooltip label="下单时间"> </el-table-column>
+                <el-table-column prop="address" show-overflow-tooltip label="选购商品名称">
+                    <template slot-scope="scope">
+                        <p>{{ scope.row.paper }}</p>
+                        <el-button class="table_button" size="mini" type="text" @click="expandRow2(scope.row)"
+                            ><i
+                                :class="`${expands2[0] == scope.row.oid ? 'el-icon-caret-bottom' : 'el-icon-caret-right'} 'el-icon--right'`"
+                            />产品配置</el-button
+                        >
+                    </template>
+                </el-table-column>
+                <!-- <el-table-column prop="addressname" show-overflow-tooltip label="选购商品数量"> </el-table-column>
+                <el-table-column prop="addressname" show-overflow-tooltip label="选购商品价格"> </el-table-column> -->
+                <el-table-column prop="addressname" show-overflow-tooltip label="收件人信息"> </el-table-column>
+                <el-table-column prop="phone" show-overflow-tooltip label="收件人联系电话"> </el-table-column>
+                <el-table-column prop="site" show-overflow-tooltip label="收件人收货地址"> </el-table-column>
+                <el-table-column prop="state" show-overflow-tooltip label="订单支付状态"> </el-table-column>
+                <el-table-column show-overflow-tooltip prop="logistics" label="物流状态"> </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> -->
+                        <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
 
         <el-dialog title="修改订单" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -304,6 +306,14 @@ export default {
 }
 .content {
     background: #fff;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .table-wrap{
+        overflow-y: scroll;
+        flex: 1;
+    }
 }
 /deep/.el-table__expand-icon {
     visibility: hidden;
